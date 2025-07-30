@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OCR Translator</title>
+</head>
+<body>
+    <h1>Upload Image for OCR</h1>
+    <form id="uploadForm">
+        <input type="file" name="file" accept="image/*" required />
+        <select name="format">
+            <option value="docx">DOCX</option>
+            <option value="pdf">PDF</option>
+        </select>
+        <button type="submit">Upload & Translate</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('/api/ocr/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    alert('Error: ' + errorText);
+                    return;
+                }
+
+                const blob = await response.blob();
+                const format = formData.get('format');
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'translated.' + format;
+                document.body.appendChild(link); // Append link to make it clickable
+                link.click();
+                document.body.removeChild(link); // Clean up
+                window.URL.revokeObjectURL(url); // Free up memory
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert('An error occurred during the request. Check the console for details.');
+            }
+        });
+    </script>
+</body>
+</html>

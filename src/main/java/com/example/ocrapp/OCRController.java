@@ -23,7 +23,6 @@ public class OCRController {
             System.out.println("Extracted text: " + extractedText);
 
             if (extractedText == null || extractedText.startsWith("❌") || extractedText.startsWith("⚠️")) {
-                // Return the error message directly to the client as a bad request
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(extractedText.getBytes(StandardCharsets.UTF_8));
             }
@@ -32,12 +31,11 @@ public class OCRController {
             String fileName;
             String mimeType;
 
-            // Conditional logic to generate the correct file type
             if ("pdf".equalsIgnoreCase(format)) {
                 fileBytes = FileGenerator.createPDF(extractedText);
                 fileName = "translated.pdf";
                 mimeType = "application/pdf";
-            } else { // Default to docx
+            } else {
                 fileBytes = FileGenerator.createDOCX(extractedText);
                 fileName = "translated.docx";
                 mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";

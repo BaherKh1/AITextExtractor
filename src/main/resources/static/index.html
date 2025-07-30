@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern OCR Translator</title>
     <style>
-        /* General body and container styling */
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #eef2f5;
@@ -41,7 +41,6 @@
             margin-bottom: 20px;
         }
 
-        /* File input styling */
         input[type="file"] {
             border: 2px dashed #d1d5db;
             padding: 20px;
@@ -76,7 +75,6 @@
             background: #eff6ff;
         }
 
-        /* Select dropdown styling */
         select {
             appearance: none;
             -webkit-appearance: none;
@@ -94,7 +92,6 @@
             background-size: 12px;
         }
 
-        /* Button styling */
         button {
             background-color: #1e3a8a;
             color: white;
@@ -115,9 +112,8 @@
             transform: scale(0.99);
         }
 
-        /* Loading animation container */
         #loading-container {
-            display: none; /* Hidden by default */
+            display: none;
             flex-direction: column;
             align-items: center;
             gap: 15px;
@@ -173,10 +169,8 @@
             const formData = new FormData(this);
             const loadingContainer = document.getElementById('loading-container');
             const resultDiv = document.getElementById('result');
-
-            // Show loading animation
             loadingContainer.style.display = 'flex';
-            resultDiv.textContent = ''; // Clear previous results
+            resultDiv.textContent = ''; 
 
             try {
                 const response = await fetch('/api/ocr/upload', {
@@ -184,7 +178,6 @@
                     body: formData
                 });
 
-                // Hide loading animation
                 loadingContainer.style.display = 'none';
 
                 if (!response.ok) {
@@ -209,7 +202,7 @@
             } catch (error) {
                 console.error('Fetch error:', error);
                 alert('An error occurred during the request. Check the console for details.');
-                loadingContainer.style.display = 'none'; // Ensure loading is hidden on error
+                loadingContainer.style.display = 'none';
             }
         });
     </script>

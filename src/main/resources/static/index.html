@@ -1,30 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>OCR Translator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern OCR Translator</title>
+    <style>
+        /* General body and container styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        #uploadForm {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* File input styling */
+        input[type="file"] {
+            border: 2px dashed #d1d5db;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            border-color: #60a5fa;
+        }
+
+        input[type="file"]::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+        input[type="file"]::before {
+            content: 'Select an image to upload';
+            display: inline-block;
+            background: #e5e7eb;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 8px 12px;
+            outline: none;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: 500;
+            color: #4b5563;
+        }
+        input[type="file"]:hover::before {
+            border-color: #60a5fa;
+            background: #eff6ff;
+        }
+
+        /* Select dropdown styling */
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #f9fafb;
+            border: 1px solid #d1d5db;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%236b7280" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l-.707.707L15 19.343l5.657-5.657-.707-.707L15 17.929l-5.707-5.707z" transform="rotate(180 15 15)"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #1a2c6d;
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+
+        /* Loading animation container */
+        #loading-container {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e5e7eb;
+            border-top: 5px solid #1e3a8a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload Image for OCR</h1>
-    <form id="uploadForm">
-        <input type="file" name="file" accept="image/*" required />
-        <select name="format">
-            <option value="docx">DOCX</option>
-            <option value="pdf">PDF</option>
-        </select>
-        <button type="submit">Upload & Translate</button>
-    </form>
-    <div id="result"></div>
+    <div class="container">
+        <h1>OCR Translator</h1>
+        <form id="uploadForm">
+            <input type="file" name="file" accept="image/*" required />
+            <select name="format">
+                <option value="docx">DOCX</option>
+                <option value="pdf">PDF</option>
+            </select>
+            <button type="submit">Upload & Translate</button>
+        </form>
+        <div id="loading-container">
+            <div class="spinner"></div>
+            <p>Processing your image...</p>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Developed by Baher Khaldi. All Rights Reserved.</p>
+    </footer>
 
     <script>
         document.getElementById('uploadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-            
+            const loadingContainer = document.getElementById('loading-container');
+            const resultDiv = document.getElementById('result');
+
+            // Show loading animation
+            loadingContainer.style.display = 'flex';
+            resultDiv.textContent = ''; // Clear previous results
+
             try {
                 const response = await fetch('/api/ocr/upload', {
                     method: 'POST',
                     body: formData
                 });
+
+                // Hide loading animation
+                loadingContainer.style.display = 'none';
 
                 if (!response.ok) {
                     const errorText = await response.text();
@@ -38,14 +199,17 @@
                 const link = document.createElement('a');
                 link.href = url;
                 link.download = 'translated.' + format;
-                document.body.appendChild(link); // Append link to make it clickable
+                document.body.appendChild(link);
                 link.click();
-                document.body.removeChild(link); // Clean up
-                window.URL.revokeObjectURL(url); // Free up memory
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+                
+                resultDiv.textContent = 'Translation complete! Your file is downloading.';
 
             } catch (error) {
                 console.error('Fetch error:', error);
                 alert('An error occurred during the request. Check the console for details.');
+                loadingContainer.style.display = 'none'; // Ensure loading is hidden on error
             }
         });
     </script>

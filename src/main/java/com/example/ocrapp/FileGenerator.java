@@ -25,6 +25,7 @@ public class FileGenerator {
     }
 
     public static byte[] createDOCX(String text) throws IOException {
+        // This method should work for Arabic, as DOCX handles fonts and RTL by default
         XWPFDocument doc = new XWPFDocument();
         XWPFParagraph p = doc.createParagraph();
         XWPFRun run = p.createRun();

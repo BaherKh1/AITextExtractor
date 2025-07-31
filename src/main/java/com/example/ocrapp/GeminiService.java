@@ -15,7 +15,6 @@ import java.util.Base64;
 @Service
 public class GeminiService {
 
-    // Inject the API key from application.properties
     @Value("${gemini.api.key}")
     private String API_KEY;
 

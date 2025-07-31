@@ -51,21 +51,6 @@ Extract text from images using **Google Gemini AI**, and export it as **PDF** or
 | ![Text Extractor Screenshot](screenshots/screenshot.PNG) | ⏳ Processing... | ✅ Downloaded file |
 ---
 
-📦 Folder Structure
-src/
-├── main/
-│   ├── java/
-│   │   └── com/example/ocrapp/
-│   │       ├── OCRController.java
-│   │       ├── GeminiService.java
-│   │       ├── FileGenerator.java
-│   │       └── DocxGenerator.java
-│   └── resources/
-│       └── application.properties
-└── web/
-    └── index.html (modern frontend)
-
-
 ## 🧪 Local Setup (Development)
 
 ### Prerequisites

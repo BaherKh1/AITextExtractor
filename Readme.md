@@ -53,9 +53,9 @@ Extract text from images using **Google Gemini AI**, and export it as **PDF** or
     <th>Result</th>
   </tr>
   <tr>
-    <td><img src="screenshots/upload.png" alt="Upload Page" width="250"/></td>
-    <td><img src="screenshots/loading.png" alt="Loading Spinner" width="250"/></td>
-    <td><img src="screenshots/result.png" alt="Download Result" width="250"/></td>
+    <td><img src="screenshots/screenshot.PNG" alt="Upload Page" width="250"/></td>
+    <td><img  alt="Loading Spinner ⏳" width="250"/></td>
+    <td><img  alt="Download Result ✅" width="250"/></td>
   </tr>
 </table>
 

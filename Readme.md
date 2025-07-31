@@ -46,20 +46,9 @@ Extract text from images using **Google Gemini AI**, and export it as **PDF** or
 
 ## 🖥️ Screenshots
 
-<table>
-  <tr>
-    <th>Upload Page</th>
-    <th>Processing</th>
-    <th>Result</th>
-  </tr>
-  <tr>
-    <td><img src="screenshots/screenshot.PNG" alt="Upload Page" width="250"/></td>
-    <td><img  alt="Loading Spinner ⏳" width="250"/></td>
-    <td><img  alt="Download Result ✅" width="250"/></td>
-  </tr>
-</table>
-
-
+| Upload Page | Loading State | Result |
+|-------------|---------------|--------|
+| ![Text Extractor Screenshot](screenshots/screenshot.PNG) | ⏳ Processing... | ✅ Downloaded file |
 ---
 
 ## 🧪 Local Setup (Development)

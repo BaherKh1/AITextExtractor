@@ -48,9 +48,8 @@ Extract text from images using **Google Gemini AI**, and export it as **PDF** or
 
 | Upload Page | Loading State | Result |
 |-------------|---------------|--------|
-| ![Upload Page](https://img.icons8.com/ios-filled/100/image.png) | ⏳ Processing... | ✅ Downloaded file |
+| ![Text Extractor Screenshot](screenshots/screenshot.png) | ⏳ Processing... | ✅ Downloaded file |
 
-*(You can insert actual screenshots here for a better experience)*
 
 ---
 

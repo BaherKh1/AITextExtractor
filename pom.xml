@@ -18,7 +18,7 @@
     <description>OCR Translator with Gemini</description>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
     </properties>
 
     <!-- ✅ Wrap all dependency blocks in a <dependencies> tag -->

@@ -48,7 +48,7 @@ Extract text from images using **Google Gemini AI**, and export it as **PDF** or
 
 | Upload Page | Loading State | Result |
 |-------------|---------------|--------|
-| ![Text Extractor Screenshot](screenshots/screenshot.png) | ⏳ Processing... | ✅ Downloaded file |
+| ![Text Extractor Screenshot](screenshots/screenshot.PNG) | ⏳ Processing... | ✅ Downloaded file |
 
 
 ---

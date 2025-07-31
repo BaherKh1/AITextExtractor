@@ -2,6 +2,7 @@ package com.example.ocrapp;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,9 @@ import java.util.Base64;
 @Service
 public class GeminiService {
 
-    private final String API_KEY = "AIzaSyDMFaplFdP4np89Yavjquli7A_bA7wmSlU";
+    // Inject the API key from application.properties
+    @Value("${gemini.api.key}")
+    private String API_KEY;
 
     public String extractTextFromImage(MultipartFile image) {
         try {

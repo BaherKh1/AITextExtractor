@@ -48,10 +48,7 @@ Extract text from images using **Google Gemini AI**, and export it as **PDF** or
 
 | Upload Page | Loading State | Result |
 |-------------|---------------|--------|
-| ![Upload Page](https://img.icons8.com/ios-filled/100/image.png) | ⏳ Processing... | ✅ Downloaded file |
-
-*(You can insert actual screenshots here for a better experience)*
-
+| ![Text Extractor Screenshot](screenshots/screenshot.PNG) | ⏳ Processing... | ✅ Downloaded file |
 ---
 
 ## 🧪 Local Setup (Development)
@@ -78,3 +75,4 @@ cd ai-text-extractor
 
 # 4. Visit
 http://localhost:8080
+

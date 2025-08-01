@@ -4,35 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Text Extractor</title>
-     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/?size=100&id=x96wD0G88NXX&format=png&color=000000">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/?size=100&id=x96wD0G88NXX&format=png&color=000000">
     <style>
+        /* CSS Variables for Colors */
+        :root {
+            --bg-color: #eef2f5;
+            --container-bg-color: #ffffff;
+            --text-color: #333;
+            --header-color: #1e3a8a;
+            --input-border-color: #d1d5db;
+            --input-bg-color: #f9fafb;
+            --input-hover-border-color: #60a5fa;
+            --input-hover-bg-color: #eff6ff;
+            --button-bg-color: #1e3a8a;
+            --button-hover-bg-color: #1a2c6d;
+            --spinner-border-color: #e5e7eb;
+            --spinner-top-color: #1e3a8a;
+            --footer-text-color: #6b7280;
+            --toggle-button-bg-color: #f3f4f6;
+            --toggle-button-color: #4b5563;
+        }
+
+        /* Dark Mode overrides */
+        .dark-mode {
+            --bg-color: #121212;
+            --container-bg-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --header-color: #90caf9;
+            --input-border-color: #444;
+            --input-bg-color: #2c2c2c;
+            --input-hover-border-color: #60a5fa;
+            --input-hover-bg-color: #3a3a3a;
+            --button-bg-color: #90caf9;
+            --button-hover-bg-color: #64b5f6;
+            --spinner-border-color: #444;
+            --spinner-top-color: #90caf9;
+            --footer-text-color: #9e9e9e;
+            --toggle-button-bg-color: #2c2c2c;
+            --toggle-button-color: #e0e0e0;
+        }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #eef2f5;
+            background-color: var(--bg-color);
+            /* New flexbox setup */
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
             margin: 0;
-            color: #333;
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* New main content wrapper */
+        main {
+            flex-grow: 1; /* This will take up all available vertical space */
+            display: flex;
+            justify-content: center; /* Center the container vertically */
+            align-items: center; /* Center the container horizontally */
+            width: 100%;
         }
 
         .container {
-            background-color: #ffffff;
+            position: relative;
+            background-color: var(--container-bg-color);
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 90%;
             max-width: 500px;
+            transition: background-color 0.3s;
         }
 
         h1 {
-            color: #1e3a8a;
+            color: var(--header-color);
             margin-bottom: 25px;
             font-weight: 600;
+            transition: color 0.3s;
         }
 
         #uploadForm {
@@ -43,7 +92,7 @@
         }
 
         input[type="file"] {
-            border: 2px dashed #d1d5db;
+            border: 2px dashed var(--input-border-color);
             padding: 20px;
             border-radius: 8px;
             text-align: center;
@@ -52,7 +101,7 @@
         }
 
         input[type="file"]:hover {
-            border-color: #60a5fa;
+            border-color: var(--input-hover-border-color);
         }
 
         input[type="file"]::-webkit-file-upload-button {
@@ -61,40 +110,45 @@
         input[type="file"]::before {
             content: 'Select an image to upload';
             display: inline-block;
-            background: #e5e7eb;
-            border: 1px solid #d1d5db;
+            background: var(--input-bg-color);
+            border: 1px solid var(--input-border-color);
             border-radius: 4px;
             padding: 8px 12px;
             outline: none;
             white-space: nowrap;
             cursor: pointer;
             font-weight: 500;
-            color: #4b5563;
+            color: var(--toggle-button-color);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
         input[type="file"]:hover::before {
-            border-color: #60a5fa;
-            background: #eff6ff;
+            border-color: var(--input-hover-border-color);
+            background: var(--input-hover-bg-color);
         }
 
         select {
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-color: #f9fafb;
-            border: 1px solid #d1d5db;
+            background-color: var(--input-bg-color);
+            border: 1px solid var(--input-border-color);
             padding: 12px;
             border-radius: 8px;
             font-size: 16px;
-            color: #333;
+            color: var(--text-color);
             cursor: pointer;
             background-image: url('data:image/svg+xml;utf8,<svg fill="%236b7280" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l-.707.707L15 19.343l5.657-5.657-.707-.707L15 17.929l-5.707-5.707z" transform="rotate(180 15 15)"/></svg>');
             background-repeat: no-repeat;
             background-position: right 12px center;
             background-size: 12px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .dark-mode select {
+             background-image: url('data:image/svg+xml;utf8,<svg fill="%239e9e9e" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l-.707.707L15 19.343l5.657-5.657-.707-.707L15 17.929l-5.707-5.707z" transform="rotate(180 15 15)"/></svg>');
         }
 
         button {
-            background-color: #1e3a8a;
+            background-color: var(--button-bg-color);
             color: white;
             padding: 14px 24px;
             border: none;
@@ -106,7 +160,7 @@
         }
 
         button:hover {
-            background-color: #1a2c6d;
+            background-color: var(--button-hover-bg-color);
         }
 
         button:active {
@@ -124,10 +178,11 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid #e5e7eb;
-            border-top: 5px solid #1e3a8a;
+            border: 5px solid var(--spinner-border-color);
+            border-top: 5px solid var(--spinner-top-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
+            transition: border-top-color 0.3s;
         }
 
         @keyframes spin {
@@ -138,40 +193,130 @@
         #result {
             margin-top: 20px;
             font-size: 16px;
-            color: #555;
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        footer {
+            padding: 20px;
+            color: var(--footer-text-color);
+            text-align: center;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        /* Dark/Light Mode Toggle Button */
+        #theme-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--toggle-button-bg-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s;
+            padding: 0;
+        }
+        #theme-toggle:hover {
+            background-color: var(--input-hover-bg-color);
+        }
+        #theme-toggle svg {
+            fill: var(--toggle-button-color);
+            width: 20px;
+            height: 20px;
+            transition: fill 0.3s;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Text Extractor</h1>
-        <form id="uploadForm">
-            <input type="file" name="file" accept="image/*" required />
-            <select name="format">
-                <option value="docx">DOCX</option>
-                <option value="pdf">PDF</option>
-            </select>
-            <button type="submit">Upload & Translate</button>
-        </form>
-        <div id="loading-container">
-            <div class="spinner"></div>
-            <p>Processing your image...</p>
+    <main>
+        <div class="container">
+            <button id="theme-toggle" aria-label="Toggle dark mode">
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun" style="display: none;">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+
+            <h1>Text Extractor</h1>
+            <form id="uploadForm">
+                <input type="file" name="file" accept="image/*" required />
+                <select name="format">
+                    <option value="docx">DOCX</option>
+                    <option value="pdf">PDF</option>
+                </select>
+                <button type="submit">Upload & Translate</button>
+            </form>
+            <div id="loading-container">
+                <div class="spinner"></div>
+                <p>Processing your image...</p>
+            </div>
+            <div id="result"></div>
         </div>
-        <div id="result"></div>
-    </div>
+    </main>
 
     <footer>
         <p>&copy; 2025 Developed by Baher Khaldi. All Rights Reserved.</p>
     </footer>
 
     <script>
+        // Theme switching logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+
+        // Check for saved theme preference or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            body.classList.add('dark-mode');
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        } else {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                localStorage.setItem('theme', 'light');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        });
+
+        // Form submission logic
         document.getElementById('uploadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
             const loadingContainer = document.getElementById('loading-container');
             const resultDiv = document.getElementById('result');
             loadingContainer.style.display = 'flex';
-            resultDiv.textContent = ''; 
+            resultDiv.textContent = '';
 
             try {
                 const response = await fetch('/api/ocr/upload', {
